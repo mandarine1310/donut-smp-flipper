@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "donut_smp_flipper",
+  "version": "${version}",
+  "name": "Donut SMP Flipper",
+  "description": "Right-click menu for item flipping, price comparison, stop-loss, and last-hours statistics.",
+  "authors": [
+    "mandarine1310"
+  ],
+  "contact": {
+    "homepage": "https://github.com/mandarine1310/donut-smp-flipper",
+    "sources": "https://github.com/mandarine1310/donut-smp-flipper"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.mandarine.donut_smp_flipper.DonutSMPFlipper"
+    ],
+    "client": [
+      "de.mandarine.donut_smp_flipper.DonutSMPFlipperClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "1.21.1",
+    "java": ">=21"
+  }
+}
