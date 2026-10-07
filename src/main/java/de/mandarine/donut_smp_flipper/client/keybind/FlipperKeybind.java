@@ -10,7 +10,7 @@ public class FlipperKeybind {
     public static final KeyBinding OPEN_FLIPPER = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.donut_smp_flipper.open_menu",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_P,
+            GLFW.GLFW_KEY_RIGHT_SHIFT,
             "category.donut_smp_flipper"
     ));
 

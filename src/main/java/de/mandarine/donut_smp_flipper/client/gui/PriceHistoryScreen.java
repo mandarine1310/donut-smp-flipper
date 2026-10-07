@@ -7,6 +7,11 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
 public class PriceHistoryScreen extends Screen {
+    private static final int BUTTON_WIDTH = 180;
+    private static final int BUTTON_HEIGHT = 30;
+    private static final int BG_COLOR = 0x1A1A2E;
+    private static final int ACCENT_COLOR = 0x00D9FF;
+
     public PriceHistoryScreen(Text title) {
         super(title);
     }
@@ -21,22 +26,35 @@ public class PriceHistoryScreen extends Screen {
         this.addDrawableChild(ButtonWidget.builder(
                 Text.literal("← Zurück"),
                 button -> this.client.setScreen(new MainFlipperScreen(Text.literal("Donut SMP Flipper"))))
-                .dimensions(centerX - 100, this.height - 40, 200, 25)
+                .dimensions(centerX - BUTTON_WIDTH / 2, this.height - 50, BUTTON_WIDTH, BUTTON_HEIGHT)
                 .build());
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, mouseX, mouseY, delta);
+        context.fill(0, 0, this.width, this.height, BG_COLOR);
+        context.fill(0, 0, this.width, 65, 0x0D0D1B);
+        context.fill(0, 65, this.width, 66, ACCENT_COLOR);
+
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("📊 PREISHISTORIE & STATISTIK"), this.width / 2, 20, ACCENT_COLOR);
+
+        int y = 100;
+        String[] items = {"diamond", "gold_ingot", "iron_ingot", "netherite_ingot"};
+        String[] icons = {"💎", "🟡", "⚪", "⬛"};
+
+        for (int i = 0; i < items.length; i++) {
+            String item = items[i];
+            String icon = icons[i];
+
+            context.drawTextWithShadow(this.textRenderer, Text.literal(icon + " " + item.replace("_", " ").toUpperCase()), 30, y, ACCENT_COLOR);
+            context.drawTextWithShadow(this.textRenderer,
+                    Text.literal("   Ø " + String.format("%.2f", FlipperState.getAutoFlipperManager().getAveragePrice(item)) +
+                            " | Min: " + String.format("%.2f", FlipperState.getAutoFlipperManager().getLowestPrice(item)) +
+                            " | Max: " + String.format("%.2f", FlipperState.getAutoFlipperManager().getHighestPrice(item))),
+                    30, y + 15, 0xFFFFFF);
+            y += 40;
+        }
+
         super.render(context, mouseX, mouseY, delta);
-
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("Preishistorie & Statistik"), this.width / 2, 15, 0xFFFFFF);
-
-        int y = 50;
-        context.drawTextWithShadow(this.textRenderer, Text.literal("Diamond: " + FlipperState.getAutoFlipperManager().getMarketOverview()), 20, y, 0xAAAAAA);
-        y += 20;
-        context.drawTextWithShadow(this.textRenderer, Text.literal("Durchschnittspreis: " + String.format("%.2f", FlipperState.getAutoFlipperManager().getAveragePrice("diamond"))), 20, y, 0xFFFFFF);
-        y += 20;
-        context.drawTextWithShadow(this.textRenderer, Text.literal("Min: " + String.format("%.2f", FlipperState.getAutoFlipperManager().getLowestPrice("diamond")) + " | Max: " + String.format("%.2f", FlipperState.getAutoFlipperManager().getHighestPrice("diamond"))), 20, y, 0xFFFFFF);
     }
 }

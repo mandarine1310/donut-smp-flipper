@@ -7,6 +7,11 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
 public class MarketOverviewScreen extends Screen {
+    private static final int BUTTON_WIDTH = 180;
+    private static final int BUTTON_HEIGHT = 30;
+    private static final int BG_COLOR = 0x1A1A2E;
+    private static final int ACCENT_COLOR = 0x00D9FF;
+
     public MarketOverviewScreen(Text title) {
         super(title);
     }
@@ -19,26 +24,29 @@ public class MarketOverviewScreen extends Screen {
         int centerX = this.width / 2;
 
         this.addDrawableChild(ButtonWidget.builder(
-                Text.literal("Preise aktualisieren"),
+                Text.literal("🔄 Preise aktualisieren"),
                 button -> FlipperState.getAutoFlipperManager().applySampleMarketData())
-                .dimensions(centerX - 100, 50, 200, 25)
+                .dimensions(centerX - BUTTON_WIDTH / 2, 100, BUTTON_WIDTH, BUTTON_HEIGHT)
                 .build());
 
         this.addDrawableChild(ButtonWidget.builder(
                 Text.literal("← Zurück"),
                 button -> this.client.setScreen(new MainFlipperScreen(Text.literal("Donut SMP Flipper"))))
-                .dimensions(centerX - 100, this.height - 40, 200, 25)
+                .dimensions(centerX - BUTTON_WIDTH / 2, this.height - 50, BUTTON_WIDTH, BUTTON_HEIGHT)
                 .build());
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, mouseX, mouseY, delta);
-        super.render(context, mouseX, mouseY, delta);
+        context.fill(0, 0, this.width, this.height, BG_COLOR);
+        context.fill(0, 0, this.width, 65, 0x0D0D1B);
+        context.fill(0, 65, this.width, 66, ACCENT_COLOR);
 
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("Marktübersicht"), this.width / 2, 15, 0xFFFFFF);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("🏪 MARKTÜBERSICHT"), this.width / 2, 20, ACCENT_COLOR);
 
         String overview = FlipperState.getAutoFlipperManager().getMarketOverview();
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(overview), this.width / 2, 100, 0x00FF00);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(overview), this.width / 2, 150, 0x00FF00);
+
+        super.render(context, mouseX, mouseY, delta);
     }
 }
