@@ -7,16 +7,10 @@ public final class FlipperState {
     }
 
     public static void initialize() {
-        FlipperItems.register();
-        AUTO_FLIPPER_MANAGER.recordPrice("diamond", 1800.0);
-        AUTO_FLIPPER_MANAGER.recordPrice("diamond", 1900.0);
-        AUTO_FLIPPER_MANAGER.recordPrice("diamond", 2000.0);
-        AUTO_FLIPPER_MANAGER.recordPrice("iron_ingot", 120.0);
-        AUTO_FLIPPER_MANAGER.recordPrice("iron_ingot", 135.0);
-        AUTO_FLIPPER_MANAGER.recordPrice("iron_ingot", 150.0);
-        AUTO_FLIPPER_MANAGER.recordPrice("gold_ingot", 220.0);
-        AUTO_FLIPPER_MANAGER.recordPrice("gold_ingot", 260.0);
-        AUTO_FLIPPER_MANAGER.recordPrice("gold_ingot", 280.0);
+        AUTO_FLIPPER_MANAGER.applySampleMarketData();
+        AUTO_FLIPPER_MANAGER.setEnabled(true);
+        AUTO_FLIPPER_MANAGER.setStopLossPercent(5.0);
+        AUTO_FLIPPER_MANAGER.setTargetProfitPercent(12.5);
     }
 
     public static AutoFlipperManager getAutoFlipperManager() {

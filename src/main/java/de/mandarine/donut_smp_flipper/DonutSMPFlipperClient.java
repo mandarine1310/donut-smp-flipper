@@ -5,6 +5,6 @@ import net.fabricmc.api.ClientModInitializer;
 public class DonutSMPFlipperClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        // Client-side initialization can be extended here later.
+        // Client-side setup can be extended here later.
     }
 }

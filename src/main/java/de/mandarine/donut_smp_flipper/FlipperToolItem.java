@@ -17,11 +17,9 @@ public class FlipperToolItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-
         if (world.isClient()) {
             MinecraftClient.getInstance().setScreen(new FlippingScreen(Text.literal("Donut SMP Flipper")));
         }
-
         return TypedActionResult.consume(stack);
     }
 }

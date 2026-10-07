@@ -17,7 +17,7 @@ public class FlippingScreen extends Screen {
         super.init();
 
         int centerX = this.width / 2;
-        int startY = 40;
+        int startY = 36;
 
         this.addDrawableChild(ButtonWidget.builder(
                 Text.literal(manager.isEnabled() ? "Disable Auto-Flipping" : "Enable Auto-Flipping"),
@@ -25,39 +25,32 @@ public class FlippingScreen extends Screen {
                     manager.setEnabled(!manager.isEnabled());
                     button.setMessage(Text.literal(manager.isEnabled() ? "Disable Auto-Flipping" : "Enable Auto-Flipping"));
                 })
-                .dimensions(centerX - 100, startY, 200, 20)
+                .dimensions(centerX - 110, startY, 220, 20)
                 .build());
 
         this.addDrawableChild(ButtonWidget.builder(
-                Text.literal("Set Stop-Loss: " + manager.getStopLossPercent() + "%"),
+                Text.literal("Stop-Loss: " + manager.getStopLossPercent() + "%"),
                 button -> {
-                    manager.setStopLossPercent(manager.getStopLossPercent() + 1.0);
-                    if (manager.getStopLossPercent() > 30.0) {
-                        manager.setStopLossPercent(0.5);
+                    double next = manager.getStopLossPercent() + 1.0;
+                    if (next > 25.0) {
+                        next = 2.0;
                     }
-                    button.setMessage(Text.literal("Set Stop-Loss: " + manager.getStopLossPercent() + "%"));
+                    manager.setStopLossPercent(next);
+                    button.setMessage(Text.literal("Stop-Loss: " + manager.getStopLossPercent() + "%"));
                 })
-                .dimensions(centerX - 100, startY + 30, 200, 20)
+                .dimensions(centerX - 110, startY + 28, 220, 20)
                 .build());
 
         this.addDrawableChild(ButtonWidget.builder(
-                Text.literal("Simulate Buy Best"),
-                button -> manager.simulateBestBuy())
-                .dimensions(centerX - 100, startY + 60, 200, 20)
+                Text.literal("Add Sample Prices"),
+                button -> manager.applySampleMarketData())
+                .dimensions(centerX - 110, startY + 56, 220, 20)
                 .build());
 
         this.addDrawableChild(ButtonWidget.builder(
-                Text.literal("Simulate Sell Best"),
-                button -> manager.simulateBestSell())
-                .dimensions(centerX - 100, startY + 90, 200, 20)
-                .build());
-
-        this.addDrawableChild(ButtonWidget.builder(
-                Text.literal("Refresh Stats"),
-                button -> {
-                    // no-op, stats update happens on render
-                })
-                .dimensions(centerX - 100, startY + 120, 200, 20)
+                Text.literal("Auto-Check Trade"),
+                button -> manager.checkTradeOpportunity())
+                .dimensions(centerX - 110, startY + 84, 220, 20)
                 .build());
     }
 
@@ -65,16 +58,12 @@ public class FlippingScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
 
-        context.drawCenteredTextWithShadow(this.textRenderer,
-                Text.literal("Donut SMP Flipper"),
-                this.width / 2,
-                10,
-                0xFFFFFF);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("Donut SMP Flipper"), this.width / 2, 10, 0xFFFFFF);
 
-        context.drawCenteredTextWithShadow(this.textRenderer,
-                Text.literal(manager.getStatsSummary()),
-                this.width / 2,
-                this.height - 80,
-                0xAAFFAA);
+        String summary = manager.getStatsSummary();
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(summary), this.width / 2, this.height - 150, 0xA9F5A9);
+
+        String market = manager.getMarketOverview();
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(market), this.width / 2, this.height - 120, 0xFFFFFF);
     }
 }

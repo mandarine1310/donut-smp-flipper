@@ -10,6 +10,7 @@ public class DonutSMPFlipper implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        FlipperItems.register();
         FlipperState.initialize();
         LOGGER.info("Donut SMP Flipper initialized");
     }

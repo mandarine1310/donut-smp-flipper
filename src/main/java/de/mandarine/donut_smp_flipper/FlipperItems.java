@@ -3,7 +3,6 @@ package de.mandarine.donut_smp_flipper;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -23,12 +22,10 @@ public final class FlipperItems {
                     Identifier.of(DonutSMPFlipper.MOD_ID, "main_group"))
             .icon(() -> new ItemStack(FLIPPER_TOOL))
             .displayName(net.minecraft.text.Text.translatable("itemGroup.donut_smp_flipper.main_group"))
-            .entries((displayContext, entries) -> {
-                entries.add(FLIPPER_TOOL);
-            })
+            .entries((displayContext, entries) -> entries.add(FLIPPER_TOOL))
             .build();
 
     public static void register() {
-        // registration already happens above
+        // registration occurs in the static field initialization above.
     }
 }
