@@ -1,4 +1,6 @@
 {
   "item.donut_smp_flipper.flipper_tool": "Flipper Tool",
-  "itemGroup.donut_smp_flipper.main_group": "Donut SMP Flipper"
+  "itemGroup.donut_smp_flipper.main_group": "Donut SMP Flipper",
+  "key.donut_smp_flipper.open_menu": "Donut SMP Flipper öffnen",
+  "category.donut_smp_flipper": "Donut SMP Flipper"
 }

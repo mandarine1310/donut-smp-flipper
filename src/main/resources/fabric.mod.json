@@ -3,7 +3,7 @@
   "id": "donut_smp_flipper",
   "version": "${version}",
   "name": "Donut SMP Flipper",
-  "description": "Right-click menu for item flipping, price tracking, stop-loss, and market statistics.",
+  "description": "Komplettes Item-Flipper-Menü mit Preisvergleich, Stop-Loss und Statistik für Donut SMP.",
   "authors": [
     "mandarine1310"
   ],
@@ -19,6 +19,7 @@
   "depends": {
     "fabricloader": ">=0.16.10",
     "minecraft": "1.21.1",
-    "java": ">=21"
+    "java": ">=21",
+    "fabric-api": "*"
   }
 }
